@@ -1,0 +1,5 @@
+{
+  "name": "Neon Nights Event Highlight",
+  "description": "A vibrant one-page event highlight featuring schedules, performers, hotels, and venue details.",
+  "requestFramePermissions": ["geolocation"]
+}
