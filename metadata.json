@@ -1,5 +1,5 @@
 {
-  "name": "Neon Nights Event Highlight",
-  "description": "A vibrant one-page event highlight featuring schedules, performers, hotels, and venue details.",
+  "name": "Jakarta Tango Marathon",
+  "description": "Official event page for the Jakarta Tango Marathon 2026.",
   "requestFramePermissions": ["geolocation"]
 }
