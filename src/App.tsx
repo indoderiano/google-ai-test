@@ -10,11 +10,15 @@ import {
   Clock, 
   MessageCircle, 
   ChevronDown,
-  Star
+  Star,
+  Send,
+  Instagram
 } from 'lucide-react';
-import { EVENT_DETAILS, PERFORMERS, HOTELS } from './constants';
-import Logo from "./assets/jtm-icon-onblack.png";
+import { EVENT_DETAILS, PERFORMERS, HOTELS, ORGANIZERS } from './constants';
+import Logo from "./assets/jtm-icon-onwhite.png";
 import LogoTitle from "./assets/jtm-title-header-white.png";
+import Mascot from "./assets/jtm26-mascot-yellow.png";
+import Elisse from "./assets/elisse.jpeg";
 
 const Section = ({ title, children, id, className = "" }: { title?: string, children: React.ReactNode, id: string, className?: string }) => (
   <section id={id} className={`py-16 px-6 max-w-7xl mx-auto ${className}`}>
@@ -34,6 +38,8 @@ const Section = ({ title, children, id, className = "" }: { title?: string, chil
 );
 
 export default function App() {
+  const [question, setQuestion] = React.useState('');
+
   const handleRegister = () => {
     const url = `https://wa.me/${EVENT_DETAILS.whatsappNumber}?text=${encodeURIComponent(EVENT_DETAILS.adminMessage)}`;
     window.open(url, '_blank');
@@ -44,6 +50,11 @@ export default function App() {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleSendQuestion = () => {
+    const url = `https://wa.me/${EVENT_DETAILS.whatsappNumber}?text=${encodeURIComponent(question)}`;
+    window.open(url, '_blank');
   };
 
   return (
@@ -93,7 +104,7 @@ export default function App() {
             className="mb-8 flex justify-center"
           >
             <div className="relative w-48 h-48">
-               <img src="https://picsum.photos/seed/tango-logo/400/400" alt="Tango For Life" className="w-full h-full object-contain" />
+               <img src={Mascot} alt="Tango For Life" className="w-full h-full object-contain" />
                {/* Simulating the logo text if image is just placeholder */}
                <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                   <span className="text-[#fbbf24] font-black text-4xl italic leading-none">TANGO</span>
@@ -259,7 +270,7 @@ export default function App() {
             </div>
             <div className="h-[350px] bg-[#0d1b2a] rounded-2xl overflow-hidden relative border border-white/5 group">
               <img 
-                src="https://picsum.photos/seed/venue-interior/800/600" 
+                src={Elisse}
                 alt="Venue Interior" 
                 className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 transition-all duration-700"
                 referrerPolicy="no-referrer"
@@ -297,9 +308,102 @@ export default function App() {
         </motion.div>
       </section>
 
+      {/* Organizers Section */}
+      <section className="py-16 px-6 bg-[#0d1b2a] border-t border-white/5">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-8 italic">EVENT ORGANIZED BY</p>
+          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24">
+            {ORGANIZERS.map((org, index) => (
+              <motion.a 
+                key={index}
+                href={org.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className="flex flex-col items-center gap-4 group cursor-pointer"
+              >
+                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-[#fbbf24]/50 transition-all overflow-hidden">
+                  <img 
+                    src={org.logo} 
+                    alt={org.name} 
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+                <span className="text-xs font-black uppercase italic tracking-widest text-zinc-400 group-hover:text-white transition-colors">
+                  {org.name}
+                </span>
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="py-10 px-6 bg-[#0d1b2a] text-center text-zinc-600 text-[10px] font-bold uppercase tracking-[0.2em]">
-        <p>© 2026 JAKARTA TANGO MARATHON. ALL RIGHTS RESERVED.</p>
+      <footer className="bg-[#0d1b2a] pt-20 pb-10 px-6 border-t border-white/5">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+          {/* Logo Section */}
+          <div className="flex flex-col items-center md:items-start">
+            <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center overflow-hidden mb-4 shadow-xl">
+              <img src={Logo} alt="Event Logo" className="w-full h-full object-cover" />
+            </div>
+            <div className="h-12 flex items-center justify-center overflow-hidden mb-4 shadow-xl">
+              <img src={LogoTitle} alt="Event Logo" className="w-full h-full object-cover" />
+            </div>
+            {/* <h3 className="font-black tracking-tighter text-lg uppercase italic leading-tight text-center md:text-left">
+              JAKARTA <span className="text-[#ec4899]">TANGO</span> MARATHON
+            </h3> */}
+          </div>
+
+          {/* Follow Us Section */}
+          <div className="flex flex-col items-center md:items-start">
+            <h4 className="text-xl font-black uppercase italic mb-2 tracking-tighter">Follow Us</h4>
+            <div className="w-12 h-1 bg-[#fbbf24] mb-6"></div>
+            <div className="space-y-4">
+              {ORGANIZERS.map((org, index) => (
+                <a 
+                  key={index}
+                  href={org.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-zinc-400 hover:text-[#fbbf24] transition-colors group"
+                >
+                  <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#fbbf24]/20 transition-colors">
+                    <Instagram size={16} />
+                  </div>
+                  <span className="text-sm font-bold uppercase tracking-wide">{org.name}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Question Section */}
+          <div className="flex flex-col items-center md:items-start">
+            <h4 className="text-xl font-black uppercase italic mb-2 tracking-tighter">Question</h4>
+            <div className="w-12 h-1 bg-[#fbbf24] mb-6"></div>
+            <div className="w-full space-y-4">
+              <textarea 
+                value={question}
+                onChange={(e) => setQuestion(e.target.value)}
+                placeholder="Your message..."
+                className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-sm focus:outline-none focus:border-[#fbbf24]/50 min-h-[100px] transition-colors"
+              />
+              <button 
+                onClick={handleSendQuestion}
+                className="w-full bg-[#fbbf24] text-[#1a237e] py-3 rounded-lg font-black uppercase italic tracking-widest text-xs hover:bg-white transition-all flex items-center justify-center gap-2"
+              >
+                <Send size={14} />
+                Send via Whatsapp
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="text-center text-zinc-600 text-[10px] font-bold uppercase tracking-[0.2em] pt-10 border-t border-white/5">
+          <p>Copyright © 2026 All rights reserved</p>
+        </div>
       </footer>
     </div>
   );
