@@ -67,13 +67,13 @@ export default function App() {
             <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center overflow-hidden">
                <img src={Logo} alt="Logo" className="w-full h-full object-cover" />
             </div>
-            <div className="flex h-15">
-               <img src={LogoTitle} alt="Logo" className="w-full h-full object-cover" />
+            <div className="flex h-12">
+               <img src={LogoTitle} alt="Logo" className="w-full h-full object-contain" />
             </div>
             {/* <span className="font-black tracking-tighter text-sm md:text-base uppercase italic">JAKARTA TANGO MARATHON</span> */}
           </div>
           <div className="hidden md:flex items-center gap-8 text-[10px] font-bold uppercase tracking-widest">
-            <button onClick={() => scrollTo('hero')} className="hover:text-[#fbbf24] transition-colors">BOOK TICKETS</button>
+            <button onClick={handleRegister} className="hover:text-[#fbbf24] transition-colors">BOOK TICKETS</button>
             <button onClick={() => scrollTo('performers')} className="hover:text-[#fbbf24] transition-colors">PERFORMERS</button>
             <button onClick={() => scrollTo('hotels')} className="hover:text-[#fbbf24] transition-colors">WHERE TO STAY</button>
             <button onClick={() => scrollTo('venue')} className="hover:text-[#fbbf24] transition-colors">VENUE</button>
@@ -82,7 +82,7 @@ export default function App() {
       </nav>
 
       {/* Hero Section */}
-      <section id="hero" className="relative h-screen flex flex-col items-center justify-center overflow-hidden pt-20">
+      <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-32 pb-20">
         <motion.div 
           initial={{ scale: 1.1, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -104,7 +104,7 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-8 flex justify-center"
           >
-            <div className="relative w-64 h-64">
+            <div className="relative w-64 h-64 z-20">
                <img src={Mascot} alt="Tango For Life" className="w-full h-full object-contain" />
                {/* Simulating the logo text if image is just placeholder */}
                {/* <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
